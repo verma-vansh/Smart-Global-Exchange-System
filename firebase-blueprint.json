@@ -1,0 +1,41 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Stores user-specific settings and profile information.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique Firebase Auth UID." },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "favorites": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "ConversionHistory": {
+      "title": "Conversion History",
+      "description": "Stores a single conversion record for a user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "from": { "type": "string" },
+        "to": { "type": "string" },
+        "amount": { "type": "number" },
+        "result": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "from", "to", "amount", "result", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document."
+    },
+    "/users/{userId}/history/{historyId}": {
+      "schema": "ConversionHistory",
+      "description": "User's conversion history records."
+    }
+  }
+}
